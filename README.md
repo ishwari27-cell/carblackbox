@@ -1,0 +1,1 @@
+Developed an ESP32-based Car Black Box integrating MPU6050, HC-SR04, NEO-6M GPS, DHT11, DS1307 RTC, SSD1306 OLED, SW-420, IR flame sensor, and ESP32-CAM for real-time monitoring and emergency response.Implemented embedded firmware for sensor interfacing, crash detection, GPS tracking, cloud connectivity, and live monitoring using Firebase
