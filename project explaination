@@ -1,0 +1,51 @@
+Project Description:
+The main purpose of this project is to develop a multi-node IoT-based vehicle safety and accident detection system that can continuously monitor the vehicle's physical condition, cabin environment, location, and visual surroundings.
+
+The system is designed to:
+
+Detect vehicle tilt and abnormal acceleration using MPU6050.
+Detect vibration/impact during an accident using SW-420.
+Monitor cabin temperature using DHT11.
+Detect fire or ignition using an IR flame sensor.
+Measure possible structural deformation/crush distance using HC-SR04.
+Record the exact accident time using DS1307 RTC.
+Obtain the vehicle's GPS location using NEO-6M.
+Provide real-time status through an SSD1306 OLED.
+Capture live video using an ESP32-CAM.
+Send sensor data to Firebase Realtime Database.
+Display all parameters on a web-based monitoring dashboard.
+Automatically generate an emergency email containing accident details and location when a crash is detected.
+
+Explained Structure:
+
+Node 1 — Master Controller
+
+The Master Controller is based on an ESP32 and functions as the primary telemetry and accident-event detection unit.
+It collects:
+MPU6050 → acceleration and vehicle orientation
+DHT11 → cabin temperature
+SW-420 → vibration/impact
+IR Flame Sensor → fire detection
+DS1307 → accident timestamp
+
+Node 2 — Slave Controller
+
+The Slave Controller handles spatial measurements, GPS information, and local visualization.
+It contains:
+HC-SR04 → measures distance/deformation
+NEO-6M GPS → provides latitude and longitude
+SSD1306 OLED → displays system status
+The GPS information is particularly important because an accident alert without the accident location would be of limited practical value.
+
+Node 3 — CAM Node
+
+The third node uses an AI-Thinker ESP32-CAM for independent video surveillance.
+The ESP32-CAM:
+Captures images from the camera.
+Converts them into JPEG frames.
+Hosts an HTTP video server.
+Streams the frames through port 81.
+Uses a multipart MJPEG stream.
+Sends the live video to the monitoring dashboard.
+Keeping the camera node separate prevents the high bandwidth of video streaming from interfering with critical sensor telemetry.
+
